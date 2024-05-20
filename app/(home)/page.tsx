@@ -1,3 +1,4 @@
+import BookingItem from "@/components/BookingItem";
 import Header from "@/components/Header";
 import Search from "@/components/Search";
 import { format } from "date-fns";
@@ -19,6 +20,13 @@ export default function Home() {
 
       <div className="px-5 mt-6">
         <Search />
+      </div>
+
+      <div className="px-5 mt-6">
+        <h2 className="text-xs uppercase text-gray-400 font-bold mb-3">
+          Agendamentos
+        </h2>
+        <BookingItem />
       </div>
     </div>
   );
