@@ -1,9 +1,7 @@
 import BarbershopInfo from "@/components/BarbershopInfo";
-import { Button } from "@/components/ui/button";
+import ServiceItem from "@/components/ServiceItem";
 import { db } from "@/lib/prisma";
-import { ChevronLeftIcon, MapPinIcon, MenuIcon, StarIcon } from "lucide-react";
-import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, ServerInsertedHTMLContext } from "next/navigation";
 
 interface BarberShopDetailsPageProps {
   params: {
@@ -28,13 +26,25 @@ const BarberShopDetailsPage = async ({
     where: {
       id: params.id,
     },
+    include: {
+      services: true,
+    },
   });
 
   if (!barbershop) {
     return notFound();
   }
 
-  return <BarbershopInfo barbershop={barbershop} />;
+  return (
+    <div className="">
+      <BarbershopInfo barbershop={barbershop} />
+      <div className="flex flex-col px-5 gap-4 py-6">
+        {barbershop.services.map((service) => (
+          <ServiceItem key={service.id} service={service} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default BarberShopDetailsPage;
