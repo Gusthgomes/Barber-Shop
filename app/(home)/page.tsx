@@ -5,16 +5,23 @@ import Search from "@/components/Search";
 import { db } from "@/lib/prisma";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({});
+  const session = await getServerSession(authOptions);
 
   return (
     <div>
       <Header />
 
       <div className="px-5 pt-5">
-        <h2 className="text-xl font-bold">Olá, Gustavo Gomes!</h2>
+        {session ? (
+          <h2 className="text-xl font-bold">Olá, {session?.user?.name}</h2>
+        ) : (
+          <h2 className="text-xl font-bold">Olá, Bom te ver aqui!</h2>
+        )}
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
