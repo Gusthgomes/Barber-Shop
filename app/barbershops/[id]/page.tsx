@@ -22,7 +22,6 @@ const BarberShopDetailsPage = async ({
   const session = await getServerSession(authOptions);
 
   if (!params.id) {
-    // TODO: redirecionar para home page
     return null;
   }
 
