@@ -1,0 +1,41 @@
+import BarberShopItem from "@/components/BarberShopItem";
+import Header from "@/components/Header";
+import { db } from "@/lib/prisma";
+
+interface BarbershopPageProps {
+  searchParams: {
+    search?: string;
+  };
+}
+
+const BarbershopPage = async ({ searchParams }: BarbershopPageProps) => {
+  const barbershops = await db.barbershop.findMany({
+    where: {
+      name: {
+        contains: searchParams.search,
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return (
+    <>
+      <Header />
+
+      <div className="px-5 py-6">
+        <h1 className="text-gray-400 font-bold text-xs uppercase">
+          Resultados para &quot;{searchParams.search}&quot;
+        </h1>
+        <div className="grid grid-cols-2 mt-3 gap-4">
+          {barbershops.map((barbershop) => (
+            <div className="w-full" key={barbershop.id}>
+              <BarberShopItem barbershop={barbershop} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default BarbershopPage;
