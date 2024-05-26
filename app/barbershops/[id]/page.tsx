@@ -1,6 +1,6 @@
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import BarbershopInfo from "@/components/BarbershopInfo";
 import ServiceItem from "@/components/ServiceItem";
+import { authOptions } from "@/lib/auth";
 import { db } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { notFound } from "next/navigation";
