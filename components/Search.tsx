@@ -5,15 +5,7 @@ import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  FormDescription,
-} from "./ui/form";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
@@ -27,12 +19,17 @@ const formSchema = z.object({
     .max(50),
 });
 
-const Search = () => {
+interface SearchProps {
+  defaultValues?: z.infer<typeof formSchema>;
+}
+
+const Search = ({ defaultValues }: SearchProps) => {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     mode: "onChange",
+    defaultValues,
   });
 
   const handleOnSubmit = (data: z.infer<typeof formSchema>) => {
