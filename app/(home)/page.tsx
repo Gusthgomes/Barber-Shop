@@ -56,7 +56,7 @@ export default async function Home() {
             <h2 className="pl-5 text-xs uppercase text-gray-400 font-bold mb-3">
               Agendamentos
             </h2>
-            <div className="px-5 flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+            <div className="px-5 flex gap-3">
               {confirmedBookings.map((booking) => (
                 <BookingItem key={booking.id} booking={booking} />
               ))}
@@ -65,24 +65,15 @@ export default async function Home() {
         )}
       </div>
 
-      <div className="mt-6">
-        <h2 className="px-5 text-xs uppercase text-gray-400 font-bold mb-3">
+      <div className="my-6 px-5">
+        <h2 className="px-0 text-xs uppercase text-gray-400 font-bold mb-3">
           Recomendados
         </h2>
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+        <div className="grid grid-cols-2 gap-4">
           {barbershops.map((barbershop) => (
-            <BarberShopItem key={barbershop.id} barbershop={barbershop} />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-6 mb-[4.5rem]">
-        <h2 className="px-5 text-xs uppercase text-gray-400 font-bold mb-3">
-          Populares
-        </h2>
-        <div className="flex px-5 gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop) => (
-            <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+            <div className="min-w-full max-w-full" key={barbershop.id}>
+              <BarberShopItem barbershop={barbershop} />
+            </div>
           ))}
         </div>
       </div>
